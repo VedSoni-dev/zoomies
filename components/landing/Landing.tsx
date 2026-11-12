@@ -110,8 +110,8 @@ export function Landing() {
           </div>
         </section>
 
-        {/* FEATURES: the 2x2, two screens, every panel on the lit ground, held still */}
-        <section className="section g2" id="features" style={{ "--h": 2 } as React.CSSProperties} aria-labelledby="features-h">
+        {/* FEATURES: one 2x2 in one group, two screens, every panel on the lit ground, held still */}
+        <section className="section" id="features" style={{ "--h": 2 } as React.CSSProperties} aria-labelledby="features-h">
           <div className="wrap">
             <div className="group">
               <div className="section-head">
@@ -138,9 +138,6 @@ export function Landing() {
                     </div>
                   </div></div>
                 </article>
-              </div>
-            </div>
-            <div className="grid">
               <article className="card card--row card--open span-6 m-nolift">
                 <h3>Frames the video for X, LinkedIn or Reels</h3>
                 <p>Nine backgrounds, one colour or your own image, at 16:9, 1:1 or 9:16.</p>
@@ -159,6 +156,7 @@ export function Landing() {
                   </div>
                 </div></div>
               </article>
+              </div>
             </div>
           </div>
         </section>

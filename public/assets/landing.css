@@ -168,3 +168,31 @@
   .lp-post { padding: 16px; }
   .lp-post .zf__muted { display: none; }
 }
+
+/* ---------------------------------------------------------------- blocker fixes */
+/* #features: one 2x2 in one group, one row gap (the column gap). From 1024 the 2x2 fills its two screens
+   in two equal rows, every panel the same height, each fragment centred in its panel at a showcase size;
+   below 1024 the cards stack at their own height, centred in the section */
+#features .group > .grid { row-gap: var(--gutter); }
+#features .card--open > .panel { min-height: var(--p-h); }
+@media (min-width: 1024px) {
+  #features .wrap > .group { flex: 1 1 auto; }
+  #features .group > .grid { flex: 1 1 auto; min-height: 0; grid-template-rows: repeat(2, minmax(0, 1fr)); }
+  #features .group > .grid > .card { display: flex; flex-direction: column; min-height: 0; }
+  #features .group > .grid > .card > .panel { flex: 1 1 auto; --p-h: 300px; }
+  #features .panel > .stage { -webkit-mask: none; mask: none; }
+  #features .panel > .stage > .at-rise { top: 50%; translate: 0 -50%; }
+}
+@media (min-width: 1280px) { #features .panel > .stage > .at-rise { zoom: 1.3; } }
+@media (max-width: 1023px) {
+  #features .wrap > .group { margin-block: auto; }
+  #features .card--open > .panel { flex: none; height: var(--p-h); }
+}
+@media (max-width: 639px) { #features .group > .grid { row-gap: var(--s-6); } }
+/* the 'Write the post' panel: on a phone, sized to its card, the card centred, the section gap before the questions */
+@media (max-width: 1023px) {
+  #questions .frame.lp-post { display: flex; align-items: center; justify-content: center; height: auto; min-height: 0; aspect-ratio: auto; padding: 16px; }
+  #questions .frame.lp-post::before { display: none; }
+  #questions .lp-post > .zf { margin-inline: auto; }
+  #questions .grid--top > .stack-5 { margin-bottom: var(--s-8); }
+}
