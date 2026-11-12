@@ -1,0 +1,11 @@
+{
+ "page": null,
+ "url": "http://localhost:3172/",
+ "root": null,
+ "kind": "software",
+ "category": "screen recorder that makes zoomed demo videos",
+ "primary": "Record a demo",
+ "rounds": 3,
+ "start": "2026-11-12T17:40:57.086Z",
+ "by": "gate.mjs --start"
+}

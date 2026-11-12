@@ -1,0 +1,300 @@
+{
+ "start": "2026-11-12T17:40:57.086Z",
+ "round": 3,
+ "idle": 0,
+ "errors": 0,
+ "status": "open",
+ "history": [
+  {
+   "at": "2026-11-12T17:51:04.459Z",
+   "mode": "manual",
+   "status": "fail",
+   "fails": 8,
+   "round": 1,
+   "reused": false,
+   "stopHookActive": false
+  },
+  {
+   "at": "2026-11-12T17:58:56.035Z",
+   "mode": "manual",
+   "status": "fail",
+   "fails": 4,
+   "round": 2,
+   "reused": false,
+   "stopHookActive": false
+  },
+  {
+   "at": "2026-11-12T18:03:30.097Z",
+   "mode": "manual",
+   "status": "open",
+   "fails": 1,
+   "round": 3,
+   "reused": false,
+   "stopHookActive": false
+  }
+ ],
+ "max": 3,
+ "marker": {
+  "page": null,
+  "url": "http://localhost:3172/",
+  "root": null,
+  "kind": "software",
+  "category": "screen recorder that makes zoomed demo videos",
+  "primary": "Record a demo",
+  "rounds": 3,
+  "start": "2026-11-12T17:40:57.086Z",
+  "by": "gate.mjs --start"
+ },
+ "manual": true,
+ "roundKey": "cfdbb020b95541b0:92e1bed2",
+ "roundFree": false,
+ "idleFree": false,
+ "blockKey": null,
+ "fp": "cfdbb020b95541b0",
+ "page": "http://localhost:3172/",
+ "found": {
+  "fails": [
+   {
+    "check": "sparse",
+    "where": "#statement section.section.mo-la \"Nothing leaves the tabzoomies re\"",
+    "msg": "its content fills 38% of its screen; merge it or give it its visual (0.55 is the aim)",
+    "fix": "fill the section or make it a screen shorter",
+    "widths": [
+     390
+    ],
+    "from": "layout",
+    "ids": [
+     "sparse"
+    ],
+    "wheres": [
+     "#statement section.section.mo-la \"Nothing leaves the tabzoomies re\""
+    ]
+   },
+   {
+    "check": "screen-height",
+    "where": "#questions section.section \"Questionszoomies is free on publ\"",
+    "msg": "1753px, 2.08 screens; a section is exactly one or two (--h), or on a phone at least one that its content fills",
+    "fix": "make the section exactly one or two screens (--h: 1 or 2)",
+    "widths": [
+     390
+    ],
+    "from": "layout",
+    "ids": [
+     "screen-height"
+    ],
+    "wheres": [
+     "#questions section.section \"Questionszoomies is free on publ\""
+    ]
+   }
+  ],
+  "warns": [
+   {
+    "check": "cta",
+    "where": "section#features \"What zoomies does to a recording. It all\"",
+    "msg": "a section over 1.5 screens long with no link or button in it",
+    "fix": "add the action: a button in the hero, one on every priced item, one in the closing section",
+    "widths": [
+     1440,
+     390
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "copy-headings",
+    "where": "h2#statement-h \"Nothing leaves the tab\"",
+    "msg": "\"Nothing leaves the tab\" names no product, part, place or section (the one brand line a page may have)",
+    "fix": "name the thing in every heading: the product, a part, the place or a section noun",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "text-contrast",
+    "where": "div.app__pane.ze__panel > div.ze__group:nth-of-type(1) > div.ze__row > span.ze__btn.ze__btn--danger \"Delete\"",
+    "msg": "1 line of text in drawn mocks read under 4.5:1 (1 colour pair), the worst \"Delete\" in #c2341b on #111110 at 3.42:1",
+    "fix": "lift the mocks' muted text (labels, meta, initials) to 4.5:1 on their own panel, or set it larger",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "section-gaps",
+    "where": "section#questions / footer#contact",
+    "msg": "uneven space at the edge of a band: 71px outside its edge, 115px inside it (the space on either side of a change of ground reads as one gap only when the two match)",
+    "fix": "use one gap between sections (all within 25% of each other)",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "nav-labels",
+    "where": "header.nav.nav--centre > div.wrap.nav__bar > a.nav__logo \"zoomies\"",
+    "msg": "\"zoomies\" opens a section headed \"Screen recorder that zooms in for you\"",
+    "fix": "name each nav link after the heading of the section it opens",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "nav-labels",
+    "where": "div.wrap.nav__bar > nav.nav__links > div.nav__item:nth-of-type(1) > a.nav__link \"Editor\"",
+    "msg": "\"Editor\" opens a section headed \"Every zoom in the demo video, on one timeline\"",
+    "fix": "name each nav link after the heading of the section it opens",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "nav-labels",
+    "where": "div.wrap.nav__bar > nav.nav__links > div.nav__item:nth-of-type(2) > a.nav__link \"Features\"",
+    "msg": "\"Features\" opens a section headed \"What zoomies does to a recording. It all runs in t\"",
+    "fix": "name each nav link after the heading of the section it opens",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "copy-length",
+    "where": "section#questions \"Questions\"",
+    "msg": "1 section over 90 words a screen outside the UI mocks (\"Questions\" 169); 65 words a screen across the page (452 words in 7 screens): a tech page says it in about 80 or fewer",
+    "fix": "cut every section to its heading, one line and the product UI: the UI says the rest; no second paragraph, no list of feature sentences",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "nav-current",
+    "where": "header.nav.nav--centre",
+    "msg": "the nav stays on screen with 4 links to the page's sections, but never marks the one you are in (no link changes as the page scrolls)",
+    "fix": "mark the link of the section on screen (a colour, a weight or a line under it) as the visitor scrolls",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "button-contrast",
+    "where": "div.hero-text > div.hero__c > div.btn-row > a.btn.btn--secondary \"Read the source\"",
+    "msg": "the button \"Read the source\" (#1f1f1e) stands only 1.15:1 off the ground around it: it reads as part of the ground, or as switched off",
+    "fix": "give the button a fill that stands at least 1.5:1 off what is around it, or an outline in the ink",
+    "widths": [
+     1440,
+     390
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "visual-caption",
+    "where": "div.ui.app > div.app__pane.ze__main > div.ze__transport > span.ze__hint \"Click the preview to aim a zoom\"",
+    "msg": "a muted 13px line of 1 row sits 19px under the canvas: it reads as a caption: \"Click the preview to aim a zoom\"; no caption or description under any image, render or visual (house rule)",
+    "fix": "take the line away: no caption or description under, over or on any image, render or visual; a licence credit goes in one footer line",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "effect-kind",
+    "where": "div.wrap > div.hero-text > div.hero__window > canvas.fx-canvas",
+    "msg": "particle code or heavy canvas 2D drawing on a software page (700 shapes a second): check it is a deliberate scene",
+    "fix": "keep particles to the one big scene, or take them off",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "action-repeat",
+    "where": "header.nav.nav--centre > div.wrap.nav__bar > div.nav__actions > a.btn.btn--primary \"record a demo\"",
+    "msg": "\"record a demo\" shows 2 times on the first screen at 1440px (nav, hero): the nav's button and the hero's; nothing else on the screen may repeat it",
+    "fix": "show the action once a screen besides the nav's button: the hero's, the close's or the phone bar's, never all at once",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "section-air",
+    "where": "section#features \"What zoomies does to a recording. It all\"",
+    "msg": "screen group 2 of this two-screen section fills 35.5% of a screen: 40% or more (25% WARN) (SR-3)",
+    "fix": "fill the section to 55%: more content, a picture or a background layer, or merge it into the section above as its last block",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "nav",
+    "where": "header.nav.nav--centre > div.wrap.nav__bar > button.nav__toggle",
+    "msg": "the nav is lopsided: its last item ends 13px inside the content's edge (366px), while its first starts on the other edge",
+    "fix": "start the nav's first item and end its last on the content's two edges",
+    "widths": [
+     390
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "visual-caption",
+    "where": "div.ui.app > div.app__pane.ze__main > div.ze__transport > span.ze__time \"0:02 / 0:07\"",
+    "msg": "a muted 12px line of 1 row sits 20px under the canvas: it reads as a caption: \"0:02 / 0:07\"; no caption or description under any image, render or visual (house rule)",
+    "fix": "take the line away: no caption or description under, over or on any image, render or visual; a licence credit goes in one footer line",
+    "widths": [
+     390
+    ],
+    "from": "consistency"
+   }
+  ],
+  "crashed": [],
+  "seconds": {
+   "consistency": 116,
+   "layout": 4
+  }
+ },
+ "open": [
+  {
+   "check": "screen-height",
+   "where": "#questions section.section \"Questionszoomies is free on publ\"",
+   "msg": "1753px, 2.08 screens; a section is exactly one or two (--h), or on a phone at least one that its content fills",
+   "fix": "make the section exactly one or two screens (--h: 1 or 2)",
+   "widths": [
+    390
+   ],
+   "from": "layout",
+   "ids": [
+    "screen-height"
+   ],
+   "wheres": [
+    "#questions section.section \"Questionszoomies is free on publ\""
+   ]
+  }
+ ],
+ "waived": [
+  {
+   "check": "sparse",
+   "where": "#statement section.section.mo-la \"Nothing leaves the tabzoomies re\"",
+   "msg": "its content fills 38% of its screen; merge it or give it its visual (0.55 is the aim)",
+   "fix": "fill the section or make it a screen shorter",
+   "widths": [
+    390
+   ],
+   "from": "layout",
+   "ids": [
+    "sparse"
+   ],
+   "wheres": [
+    "#statement section.section.mo-la \"Nothing leaves the tabzoomies re\""
+   ],
+   "reason": "the dealt letters-assemble statement section is type by design (moments.md); at 390 the kit's own moment.css sets its phone size, so the statement and its line fill 38% of the screen"
+  }
+ ],
+ "warnCount": 16,
+ "at": "2026-11-12T18:03:30.098Z",
+ "openTold": true
+}

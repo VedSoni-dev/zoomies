@@ -1,35 +1,77 @@
+/* The app at /app. Same tokens and type as the landing page (app/globals.css); every rule is scoped to .zs-shell
+   so nothing here meets the landing page's kit classes. */
 .zs-shell { min-height: 100vh; min-height: 100dvh; display: flex; flex-direction: column; }
-.zs-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; height: 60px; padding: 0 20px; border-bottom: 1px solid var(--line); }
-.zs-logo { display: inline-flex; align-items: center; gap: 8px; font-weight: 650; text-decoration: none; }
-.zs-top-right { display: flex; gap: 8px; }
-.zs-foot { padding: 20px; text-align: center; }
+.zs-shell a { color: inherit; }
+.zs-shell h1, .zs-shell h2, .zs-shell h3 { margin: 0; letter-spacing: -0.02em; font-weight: 600; }
+.zs-shell .mono { font-family: var(--mono); }
+.zs-shell .muted { color: var(--muted); }
+.zs-shell .small { font-size: 13px; }
+.zs-shell kbd { display: inline-block; padding: 0 5px; border: 1px solid var(--line-2); border-bottom-width: 2px; border-radius: 5px; font: 500 11px/16px var(--mono); color: var(--ink); }
+.zs-icon { flex: none; }
 
-.zs-home { flex: 1; width: 100%; max-width: 920px; margin: 0 auto; padding: 48px 20px; }
-.zs-hello h1 { font-size: 34px; line-height: 1.1; }
-.zs-hello p { margin: 10px 0 28px; font-size: 16px; max-width: 38em; }
+/* buttons: one family, three weights */
+.zs-shell .btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 40px; padding: 8px 14px;
+  border: 1px solid var(--line-2); border-radius: var(--r-sm); background: var(--card); color: var(--ink);
+  font: 500 14px/1 var(--sans); text-decoration: none; cursor: pointer; transition: background-color .15s, border-color .15s, transform .1s;
+}
+.zs-shell .btn:hover { background: var(--bg-2); }
+.zs-shell .btn:active { transform: translateY(1px); }
+.zs-shell .btn:disabled { opacity: .5; cursor: default; transform: none; }
+.zs-shell .btn-primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); font-weight: 600; }
+.zs-shell .btn-primary:hover { background: color-mix(in oklab, var(--accent) 88%, var(--ink)); }
+.zs-shell .btn-ghost { background: transparent; border-color: transparent; }
+.zs-shell .btn-ghost:hover { background: var(--bg-2); }
+.zs-shell :is(.btn, button, a, input, textarea, label):focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.zs-shell .linkish { background: none; border: 0; padding: 0; color: var(--ink); font: inherit; font-weight: 500; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: color-mix(in oklab, var(--ink) 35%, transparent); cursor: pointer; }
+.zs-shell .linkish:hover { text-decoration-color: currentColor; }
+.zs-shell .danger { color: var(--danger); }
+.icon-btn { width: 40px; height: 40px; flex: none; display: grid; place-items: center; border: 1px solid transparent; border-radius: var(--r-sm); background: transparent; color: var(--muted); font-size: 20px; line-height: 1; cursor: pointer; }
+.icon-btn:hover { background: var(--bg-2); color: var(--ink); }
+
+/* top bar */
+.zs-top { position: sticky; top: 0; z-index: 10; display: flex; align-items: center; justify-content: space-between; gap: 12px; height: 60px; padding: 0 20px; border-bottom: 1px solid var(--line); background: var(--bg); }
+.zs-logo { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; font-size: 16px; letter-spacing: -0.01em; text-decoration: none; min-height: 44px; }
+.zs-top-right { display: flex; gap: 8px; }
+.zs-foot { padding: 24px 20px; text-align: center; }
+.zs-foot a { text-underline-offset: 3px; }
+
+/* home */
+.zs-home { flex: 1; width: 100%; max-width: 960px; margin: 0 auto; padding: 56px 24px 40px; }
+.zs-kicker { margin: 0 0 12px; font-size: 12px; color: var(--muted); }
+.zs-hello h1 { font-size: clamp(30px, 4vw, 40px); line-height: 1.08; font-weight: 600; letter-spacing: -0.03em; }
+.zs-hello > p:last-child { margin: 12px 0 32px; font-size: 16px; max-width: 40em; }
 .zs-start { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.zs-card { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; padding: 24px; border: 1px solid var(--line); border-radius: 16px; background: var(--card); text-align: left; font: inherit; color: inherit; }
-.zs-card h2 { font-size: 20px; }
+.zs-card { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; padding: 24px; border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--card); text-align: left; font: inherit; color: inherit; box-shadow: var(--shadow); }
+.zs-card h2 { font-size: 19px; }
 .zs-card p { margin: 0; }
 .zs-card .btn { margin-top: auto; }
-.zs-drop { cursor: pointer; border-style: dashed; }
-.zs-drop:hover { border-color: var(--accent); }
-.zs-check { display: flex; align-items: center; gap: 8px; font-size: 14px; }
-.zs-check input { accent-color: var(--accent); width: 16px; height: 16px; }
-.zs-how { list-style: none; margin: 32px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.zs-card-icon { display: grid; place-items: center; width: 40px; height: 40px; margin-bottom: 4px; border-radius: 10px; background: var(--accent-soft); color: var(--accent); }
+.zs-card-icon .zs-icon { width: 20px; height: 20px; }
+.zs-card-rec { border-color: color-mix(in oklab, var(--accent) 35%, var(--line)); }
+.zs-drop { cursor: pointer; border-style: dashed; border-color: var(--line-2); box-shadow: none; background: transparent; transition: border-color .15s, background-color .15s; }
+.zs-drop .zs-card-icon { background: var(--bg-2); color: var(--ink); }
+.zs-drop:hover { border-color: var(--ink); background: var(--card); }
+.zs-rec-dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+.zs-check { display: flex; align-items: center; gap: 10px; min-height: 44px; font-size: 14px; cursor: pointer; }
+.zs-check input { accent-color: var(--accent); width: 18px; height: 18px; margin: 0; }
+.zs-how { list-style: none; margin: 40px 0 0; padding: 24px 0 0; border-top: 1px solid var(--line); display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
 .zs-how li { display: flex; gap: 12px; font-size: 14px; color: var(--muted); }
-.zs-how strong { color: var(--ink); }
-.zs-how b, .zs-howto b { flex: none; display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--ink); color: var(--bg); font: 600 12px var(--mono); }
-.zs-projects { list-style: none; margin: 28px 0 0; padding: 0; display: grid; gap: 8px; }
+.zs-how strong { color: var(--ink); font-weight: 600; }
+.zs-how b, .zs-howto b { flex: none; display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--ink); color: var(--bg); font: 500 12px var(--mono); }
+.zs-projects { list-style: none; margin: 32px 0 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; }
+.zs-projects li { min-width: 0; }
 .zs-projects li { display: flex; align-items: center; gap: 8px; }
-.zs-proj { flex: 1; display: flex; justify-content: space-between; gap: 12px; align-items: center; padding: 14px 16px; border: 1px solid var(--line); border-radius: 12px; background: var(--card); color: inherit; font: inherit; text-align: left; cursor: pointer; }
+.zs-proj { flex: 1; min-width: 0; display: flex; gap: 14px; align-items: center; min-height: 64px; padding: 10px 16px 10px 10px; border: 1px solid var(--line); border-radius: var(--r-md); background: var(--card); color: inherit; font: inherit; text-align: left; cursor: pointer; transition: border-color .15s; }
 .zs-proj:hover { border-color: var(--ink); }
-.zs-proj-name { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.icon-btn { width: 36px; height: 36px; flex: none; border: 1px solid transparent; border-radius: 10px; background: transparent; color: var(--muted); font-size: 20px; line-height: 1; cursor: pointer; }
-.icon-btn:hover { background: var(--bg-2); color: var(--ink); }
+.zs-proj-thumb { position: relative; flex: none; width: 72px; height: 44px; border-radius: 6px; }
+.zs-proj-thumb i { position: absolute; inset: 7px 10px; border-radius: 3px; background: var(--card); opacity: .9; }
+.zs-proj-name { flex: 1; min-width: 0; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.zs-skel { flex: 1; height: 64px; border-radius: var(--r-md); background: linear-gradient(90deg, var(--bg-2), var(--card), var(--bg-2)); background-size: 200% 100%; animation: zs-shimmer 1.4s linear infinite; }
+@keyframes zs-shimmer { to { background-position: -200% 0; } }
 .zs-example { margin-top: 28px; }
-.zs-error { margin: 0 0 16px; padding: 10px 14px; border-radius: 10px; background: color-mix(in srgb, var(--danger) 12%, transparent); color: var(--danger); }
-.zs-recording { max-width: 520px; margin: 48px auto; display: grid; gap: 14px; justify-items: start; padding: 28px; border: 1px solid var(--line); border-radius: 16px; background: var(--card); font-size: 18px; font-weight: 600; }
+.zs-error { margin: 0 0 16px; padding: 10px 14px; border-radius: var(--r-sm); background: color-mix(in srgb, var(--danger) 12%, transparent); color: var(--danger); }
+.zs-recording { max-width: 520px; margin: 48px auto; display: grid; gap: 14px; justify-items: start; padding: 28px; border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--card); box-shadow: var(--shadow); font-size: 18px; font-weight: 600; }
 .zs-recording p { margin: 0; font-size: 15px; font-weight: 400; }
 .zs-dot { display: inline-block; width: 10px; height: 10px; margin-right: 6px; border-radius: 50%; background: var(--danger); animation: zs-pulse 1.2s ease-in-out infinite; }
 @keyframes zs-pulse { 50% { opacity: .3; } }
@@ -38,53 +80,55 @@
 .zs-bar i { display: block; height: 100%; background: var(--accent); transition: width .2s; }
 
 /* editor */
-.zs-editor { flex: 1; display: grid; grid-template-columns: minmax(0, 1fr) 300px; min-height: 0; }
-.zs-stage-col { padding: 16px 20px 24px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
-.zs-name { width: 100%; max-width: 480px; padding: 4px 6px; margin-left: -6px; border: 1px solid transparent; border-radius: 8px; background: transparent; color: var(--ink); font: 650 18px var(--sans); }
+.zs-editor { flex: 1; display: grid; grid-template-columns: minmax(0, 1fr) 320px; min-height: 0; }
+.zs-stage-col { padding: 16px 24px 28px; display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.zs-name { width: 100%; max-width: 480px; min-height: 40px; padding: 4px 8px; margin-left: -8px; border: 1px solid transparent; border-radius: var(--r-sm); background: transparent; color: var(--ink); font: 600 18px var(--sans); letter-spacing: -0.01em; }
 .zs-name:hover { border-color: var(--line); }
-.zs-howto { position: relative; list-style: none; margin: 0; padding: 12px 44px 12px 14px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--card); font-size: 13px; }
+.zs-howto { position: relative; list-style: none; margin: 0; padding: 12px 48px 12px 14px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; border: 1px solid var(--line); border-radius: var(--r-md); background: var(--card); font-size: 13px; }
 .zs-howto li { display: flex; gap: 8px; align-items: flex-start; }
-.zs-howto .icon-btn { position: absolute; top: 6px; right: 6px; }
-.zs-stage { width: 100%; max-height: 58vh; margin: 0 auto; display: flex; justify-content: center; }
-.zs-stage canvas { height: 100%; max-width: 100%; max-height: 58vh; aspect-ratio: inherit; border-radius: 8px; cursor: crosshair; background: var(--bg-2); }
+.zs-howto .icon-btn { position: absolute; top: 4px; right: 4px; }
+.zs-stage { width: 100%; max-height: 52vh; margin: 0 auto; display: flex; justify-content: center; padding: 12px; border-radius: var(--r-md); background: var(--bg-2); }
+.zs-stage canvas { height: 100%; max-width: 100%; max-height: calc(52vh - 24px); aspect-ratio: inherit; border-radius: 6px; cursor: crosshair; background: var(--bg); }
 .zs-transport { display: flex; align-items: center; gap: 12px; }
+.zs-play { min-width: 96px; }
 .zs-hint { margin-left: auto; }
 .zs-timeline { position: relative; padding-top: 20px; user-select: none; }
 .zs-ticks { position: absolute; inset: 0 0 auto 0; height: 18px; color: var(--muted); }
-.zs-ticks span { position: absolute; transform: translateX(-50%); font-size: 10px; }
+.zs-ticks span { position: absolute; transform: translateX(-50%); font-size: 11px; }
 .zs-ticks span:first-child { transform: none; }
-.zs-track { position: relative; height: 52px; border-radius: 10px; background: var(--bg-2); border: 1px solid var(--line); cursor: text; touch-action: none; }
-.zs-block { position: absolute; top: 6px; bottom: 6px; display: flex; align-items: center; justify-content: center; border-radius: 7px; background: color-mix(in srgb, var(--accent) 22%, var(--card)); border: 1px solid var(--accent); color: var(--ink); font-size: 11px; cursor: grab; overflow: hidden; touch-action: none; }
+.zs-track { position: relative; height: 56px; border-radius: var(--r-sm); background: var(--bg-2); border: 1px solid var(--line); cursor: text; touch-action: none; }
+.zs-block { position: absolute; top: 6px; bottom: 6px; display: flex; align-items: center; justify-content: center; border-radius: 6px; background: color-mix(in oklab, var(--accent) 20%, var(--card)); border: 1px solid var(--accent); color: var(--ink); font-size: 11px; cursor: grab; overflow: hidden; touch-action: none; }
+.zs-block:active { cursor: grabbing; }
 .zs-block.on { background: var(--accent); color: var(--accent-ink); }
-.zs-block .h { position: absolute; top: 0; bottom: 0; width: 10px; cursor: ew-resize; }
+.zs-block .h { position: absolute; top: 0; bottom: 0; width: 12px; cursor: ew-resize; }
 .zs-block .h.a { left: 0; } .zs-block .h.b { right: 0; }
-.zs-block .h::after { content: ""; position: absolute; top: 30%; bottom: 30%; left: 4px; width: 2px; border-radius: 1px; background: currentColor; opacity: .5; }
+.zs-block .h::after { content: ""; position: absolute; top: 30%; bottom: 30%; left: 5px; width: 2px; border-radius: 1px; background: currentColor; opacity: .5; }
 .zs-head { position: absolute; top: -4px; bottom: -4px; width: 2px; margin-left: -1px; background: var(--ink); pointer-events: none; }
 
-.zs-panel { border-left: 1px solid var(--line); padding: 8px 18px 24px; overflow-y: auto; display: grid; align-content: start; }
+.zs-panel { border-left: 1px solid var(--line); padding: 4px 20px 28px; overflow-y: auto; display: grid; align-content: start; background: var(--card); }
 .zs-group { display: grid; gap: 10px; padding: 16px 0; border-bottom: 1px solid var(--line); }
 .zs-group:last-child { border-bottom: 0; }
-.zs-group h3 { font-size: 13px; font-weight: 600; display: flex; justify-content: space-between; align-items: baseline; }
-.zs-group textarea, .zs-group input[type=password] { width: 100%; padding: 8px 10px; border: 1px solid var(--line); border-radius: 10px; background: var(--card); color: var(--ink); font: 14px/1.4 var(--sans); resize: vertical; }
-.zs-selected { background: color-mix(in srgb, var(--accent) 7%, transparent); margin: 0 -18px; padding: 16px 18px; }
-.danger { color: var(--danger); }
+.zs-group h3 { font-size: 13px; font-weight: 600; letter-spacing: 0; display: flex; justify-content: space-between; align-items: baseline; }
+.zs-group textarea, .zs-group input[type=password] { width: 100%; padding: 8px 10px; border: 1px solid var(--line-2); border-radius: var(--r-sm); background: var(--bg); color: var(--ink); font: 14px/1.4 var(--sans); resize: vertical; }
+.zs-selected { background: color-mix(in oklab, var(--accent) 8%, transparent); margin: 0 -20px; padding: 16px 20px; }
 .zs-row { display: flex; flex-wrap: wrap; gap: 8px; }
-.zs-slider { display: grid; grid-template-columns: 64px 1fr 44px; gap: 10px; align-items: center; font-size: 13px; }
+.zs-slider { display: grid; grid-template-columns: 64px 1fr 44px; gap: 10px; align-items: center; min-height: 32px; font-size: 13px; }
 .zs-slider input { accent-color: var(--accent); width: 100%; }
 .zs-slider .mono { text-align: right; color: var(--muted); }
 .zs-swatches { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; }
-.zs-sw { position: relative; aspect-ratio: 1; border: 2px solid transparent; border-radius: 9px; cursor: pointer; padding: 0; box-shadow: inset 0 0 0 1px rgba(0,0,0,.08); }
+.zs-sw { position: relative; display: grid; place-items: center; aspect-ratio: 1; min-height: 36px; border: 2px solid transparent; border-radius: 9px; cursor: pointer; padding: 0; box-shadow: inset 0 0 0 1px rgb(0 0 0 / .08); }
 .zs-sw[aria-pressed=true] { border-color: var(--ink); }
 .zs-sw-solid input { position: absolute; inset: 0; opacity: 0; width: 100%; height: 100%; cursor: pointer; }
-.zs-sw-img { background: var(--card); color: var(--muted); font: 600 11px var(--mono); border: 1px dashed var(--line); }
-.zs-seg { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 3px; padding: 3px; border: 1px solid var(--line); border-radius: 10px; }
-.zs-seg button { min-height: 32px; border: 0; border-radius: 7px; background: transparent; color: var(--ink); font: 500 13px var(--sans); cursor: pointer; }
+.zs-sw-img { background: var(--bg); color: var(--muted); border: 1px dashed var(--line-2); }
+.zs-seg { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 3px; padding: 3px; border: 1px solid var(--line); border-radius: 10px; background: var(--bg); }
+.zs-seg button { min-height: 34px; border: 0; border-radius: 7px; background: transparent; color: var(--ink); font: 500 13px var(--sans); cursor: pointer; }
 .zs-seg button[aria-pressed=true] { background: var(--ink); color: var(--bg); }
-.zs-post { display: grid; gap: 8px; padding: 12px; border-radius: 10px; background: var(--bg-2); }
+.zs-post { display: grid; gap: 8px; padding: 12px; border-radius: var(--r-sm); background: var(--bg-2); }
 .zs-post p { margin: 0; font-size: 14px; white-space: pre-wrap; }
 
-.zs-modal { position: fixed; inset: 0; z-index: 50; display: grid; place-items: center; padding: 16px; background: rgba(0,0,0,.45); }
-.zs-modal-card { width: 100%; max-width: 420px; display: grid; gap: 14px; padding: 24px; border-radius: 18px; background: var(--card); border: 1px solid var(--line); }
+.zs-modal { position: fixed; inset: 0; z-index: 50; display: grid; place-items: center; padding: 16px; background: rgb(0 0 0 / .45); }
+.zs-modal-card { width: 100%; max-width: 420px; display: grid; gap: 14px; padding: 24px; border-radius: 18px; background: var(--card); border: 1px solid var(--line); box-shadow: var(--shadow); }
+.zs-modal-card h2 { font-size: 20px; }
 .zs-modal-card .zs-group { border: 0; padding: 0; }
 .zs-done { display: grid; gap: 8px; }
 
@@ -94,5 +138,14 @@
   .zs-howto { grid-template-columns: 1fr; }
   .zs-start, .zs-how { grid-template-columns: 1fr; }
   .zs-hint { display: none; }
-  .zs-home { padding: 28px 16px; }
+  .zs-home { padding: 32px 16px; }
+  .zs-stage-col { padding: 12px 16px 20px; }
+  .zs-top { padding: 0 12px 0 16px; }
+  .zs-panel { padding: 4px 16px 24px; }
+  .zs-selected { margin: 0 -16px; padding: 16px; }
+}
+.zs-panel .btn-ghost { border-color: var(--line-2); }
+@media (max-width: 560px) { .zs-proj { flex-wrap: wrap; row-gap: 2px; } .zs-proj > .muted { flex-basis: 100%; padding-left: 86px; margin-top: -22px; } .zs-proj-name { padding-bottom: 18px; } .zs-ticks .odd { display: none; } .zs-stage { padding: 8px; } }
+@media (prefers-reduced-motion: reduce) {
+  .zs-dot, .zs-skel { animation: none; }
 }

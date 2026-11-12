@@ -144,25 +144,33 @@ export default function Studio() {
         {view === "home" && (
           <>
             <header className="zs-hello">
+              <p className="zs-kicker mono">{projects?.length ? `${projects.length} on this computer` : "Runs in this tab · nothing uploaded"}</p>
               <h1>{projects?.length ? "Your demos" : "Make your first demo"}</h1>
               <p className="muted">Record your screen, or drop a recording from any app. zoomies finds the moments where things happen and zooms in on them. Nothing leaves this tab.</p>
             </header>
             {error && <p className="zs-error" role="alert">{error}</p>}
             <div className="zs-start">
-              <div className="zs-card">
+              <div className="zs-card zs-card-rec">
+                <span className="zs-card-icon" aria-hidden><Icon name="record" /></span>
                 <h2>Record your screen</h2>
                 <p className="muted">Pick a screen, a window or a tab in the browser&apos;s picker.</p>
                 <label className="zs-check"><input type="checkbox" checked={mic} onChange={(e) => setMic(e.target.checked)} /> Also record my microphone</label>
-                <button className="btn btn-primary" disabled={!canRecord()} onClick={() => void record()}>Start recording</button>
+                <button className="btn btn-primary" disabled={!canRecord()} onClick={() => void record()}><i className="zs-rec-dot" aria-hidden /> Start recording</button>
                 {!canRecord() && <p className="muted small">This browser can&apos;t record the screen (phones can&apos;t). Drop a video instead, or open zoomies in Chrome, Edge or Firefox on a computer.</p>}
               </div>
               <button className="zs-card zs-drop" onClick={() => fileRef.current?.click()}>
+                <span className="zs-card-icon" aria-hidden><Icon name="drop" /></span>
                 <h2>Drop a video</h2>
                 <p className="muted">A recording from QuickTime, OBS, Game Bar, Loom or your phone. MP4, MOV or WebM.</p>
                 <span className="btn">Choose a file</span>
               </button>
               <input ref={fileRef} type="file" accept="video/*,.mov,.mkv" hidden onChange={(e) => { onFiles(e.target.files); e.target.value = ""; }} />
             </div>
+            {projects === null && (
+              <ul className="zs-projects" aria-busy="true" aria-label="Loading your demos">
+                <li><span className="zs-skel" /></li><li><span className="zs-skel" /></li>
+              </ul>
+            )}
             {projects && projects.length === 0 && (
               <ol className="zs-how">
                 <li><b>1</b><span><strong>Record or drop.</strong> Click around and type like you normally would. Pause a beat on the important parts.</span></li>
@@ -171,10 +179,11 @@ export default function Studio() {
               </ol>
             )}
             {projects && projects.length > 0 && (
-              <ul className="zs-projects">
+              <ul className="zs-projects" aria-label="Your demos">
                 {projects.map((p) => (
                   <li key={p.id}>
                     <button className="zs-proj" onClick={() => void open(p)}>
+                      <span className="zs-proj-thumb" aria-hidden style={{ background: bgCss(p.style.bg, p.style.solid) }}><i /></span>
                       <span className="zs-proj-name">{p.name}</span>
                       <span className="muted mono small">{fmt(p.duration)} · {p.zooms.length} zoom{p.zooms.length === 1 ? "" : "s"}{p.source === "example" ? " · example" : ""}</span>
                     </button>
@@ -201,6 +210,23 @@ function TopBar({ children }: { children?: React.ReactNode }) {
       <div className="zs-top-right">{children}</div>
     </header>
   );
+}
+
+const bgCss = (id: string, solid: string) => {
+  const b = BACKGROUNDS.find((x) => x.id === id);
+  return b ? `linear-gradient(${b.angle}deg, ${b.stops.join(",")})` : id === "solid" ? solid : "var(--bg-2)";
+};
+
+const ICONS: Record<string, React.ReactNode> = {
+  play: <path d="M5 3.5v9l7.5-4.5z" fill="currentColor" />,
+  pause: <><rect x="4" y="3" width="3" height="10" rx="1" fill="currentColor" /><rect x="9" y="3" width="3" height="10" rx="1" fill="currentColor" /></>,
+  image: <><rect x="2" y="3" width="12" height="10" rx="2" fill="none" stroke="currentColor" strokeWidth="1.4" /><circle cx="6" cy="6.5" r="1.2" fill="currentColor" /><path d="M2.5 12l3.5-3.5 2.5 2.5 2-2 3 3" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round" /></>,
+  back: <path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />,
+  record: <><rect x="1.5" y="3" width="13" height="9" rx="2" fill="none" stroke="currentColor" strokeWidth="1.4" /><circle cx="8" cy="7.5" r="2" fill="currentColor" /><path d="M5.5 14.5h5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" /></>,
+  drop: <><path d="M8 2.5v7M5 6.5l3 3 3-3" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" /><path d="M2.5 10v2a1.5 1.5 0 0 0 1.5 1.5h8a1.5 1.5 0 0 0 1.5-1.5v-2" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" /></>,
+};
+export function Icon({ name }: { name: keyof typeof ICONS }) {
+  return <svg className="zs-icon" width="16" height="16" viewBox="0 0 16 16" aria-hidden>{ICONS[name]}</svg>;
 }
 
 export function Mark() {
@@ -313,7 +339,7 @@ function Editor({ initial, videoUrl, onClose }: { initial: Project; videoUrl: st
   return (
     <div className="zs-shell zs-edit">
       <TopBar>
-        <button className="btn btn-ghost" onClick={onClose}>← All demos</button>
+        <button className="btn btn-ghost" onClick={onClose}><Icon name="back" /> All demos</button>
         <button className="btn btn-primary" onClick={() => { videoRef.current?.pause(); setExporting(true); }}>Export MP4</button>
       </TopBar>
       <div className="zs-editor">
@@ -332,9 +358,9 @@ function Editor({ initial, videoUrl, onClose }: { initial: Project; videoUrl: st
             <video ref={videoRef} src={videoUrl} playsInline preload="auto" onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onEnded={() => setPlaying(false)} hidden />
           </div>
           <div className="zs-transport">
-            <button className="btn" onClick={toggle} aria-label={playing ? "Pause" : "Play"}>{playing ? "Pause" : "Play"}</button>
+            <button className="btn zs-play" onClick={toggle} aria-label={playing ? "Pause" : "Play"}>{playing ? <Icon name="pause" /> : <Icon name="play" />}<span>{playing ? "Pause" : "Play"}</span></button>
             <span className="mono small">{fmt(t)} / {fmt(p.duration)}</span>
-            <span className="muted small zs-hint">Space plays · click the preview to zoom there</span>
+            <span className="muted small zs-hint"><kbd>Space</kbd> plays · <kbd>Delete</kbd> removes a zoom · click the preview to zoom there</span>
           </div>
           <Timeline duration={p.duration} t={t} zooms={p.zooms} sel={sel} onSel={setSel}
             onSeek={(x) => { if (videoRef.current) videoRef.current.currentTime = x; }}
@@ -368,7 +394,7 @@ function Editor({ initial, videoUrl, onClose }: { initial: Project; videoUrl: st
               <label className="zs-sw zs-sw-solid" title="Solid colour" aria-pressed={style.bg === "solid"} style={{ background: style.solid }}>
                 <input type="color" value={style.solid} aria-label="Solid colour" onChange={(e) => setStyle({ bg: "solid", solid: e.target.value })} onClick={() => setStyle({ bg: "solid" })} />
               </label>
-              <button className="zs-sw zs-sw-img" title="Your image" aria-pressed={style.bg === "image"} onClick={() => bgInput.current?.click()}>img</button>
+              <button className="zs-sw zs-sw-img" title="Your image" aria-label="Your image" aria-pressed={style.bg === "image"} onClick={() => bgInput.current?.click()}><Icon name="image" /></button>
               <input ref={bgInput} type="file" accept="image/*" hidden onChange={(e) => void onBgFile(e.target.files?.[0])} />
             </div>
           </div>
@@ -434,7 +460,7 @@ function Timeline({ duration, t, zooms, sel, onSel, onSeek, onChange }: {
   return (
     <div className="zs-timeline">
       <div className="zs-ticks mono small" aria-hidden>
-        {marks.map((m) => <span key={m} style={{ left: `${(m / duration) * 100}%` }}>{fmt(m)}</span>)}
+        {marks.map((m, i) => <span key={m} className={i % 2 ? "odd" : undefined} style={{ left: `${(m / duration) * 100}%` }}>{fmt(m)}</span>)}
       </div>
       <div ref={ref} className="zs-track" onPointerDown={(e) => { onSel(null); onSeek(toTime(e.clientX)); }}>
         {zooms.map((z) => (

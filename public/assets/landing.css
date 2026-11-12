@@ -1,0 +1,170 @@
+/* zoomies' landing page (/): the page's own CSS, loaded after the kit (system.css and the rest in public/assets).
+   The :root blocks are start.mjs brand's, run on zoomies' light and dark colours (the same tokens as the app).
+   The rest sits inside the page's visuals: the hero's preview window (zw-*), the editor (ze-*), the card
+   fragments (zf-*) and the changed-cells picture (zd). */
+:root {
+  --p-bg: #f4f2ee; --p-surface: #ebe8e1; --p-ink: #16150f; --p-muted: #52514a;
+  --p-accent: #e8501a; --p-accent-ink: #111111; --p-action: #e8501a; --p-action-ink: #111111;
+  --p-inv-bg: #16150f; --p-inv-surface: #22211b; --p-inv-ink: #f4f2ee; --p-inv-muted: #979590;
+  --p-inv-accent: #e8501a; --p-inv-accent-ink: #111111; --p-inv-action: #e8501a; --p-inv-action-ink: #111111;
+  --font-display: "Geist", system-ui, sans-serif;
+  --font-text: "Geist", system-ui, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --display-weight: 500;
+  --display-tracking: -0.035em;
+  --display-tracking-xl: -0.045em;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --p-bg: #111110; --p-surface: #1b1b19; --p-ink: #efede7; --p-muted: #a9a69d;
+    --p-accent: #ff6a32; --p-accent-ink: #111110; --p-action: #ff6a32; --p-action-ink: #111110;
+    --p-inv-bg: #efede7; --p-inv-surface: #dddbd6; --p-inv-ink: #111110; --p-inv-muted: #5b5b58;
+    --p-inv-accent: #111110; --p-inv-accent-ink: #efede7; --p-inv-action: #111110; --p-inv-action-ink: #efede7;
+    color-scheme: dark;
+  }
+}
+
+.lp-mark { display: inline-flex; color: var(--ink); }
+.lp-mark svg { width: 22px; height: 22px; }
+
+/* ---------------------------------------------------------------- hero: the preview window */
+.zw { overflow: hidden; border-radius: var(--r-md, 14px); background: var(--bg); border: 1px solid var(--line);
+  box-shadow: 0 2px 4px rgb(0 0 0 / .08), 0 30px 60px -28px rgb(0 0 0 / .45); }
+.zw__bar { display: flex; align-items: center; gap: 12px; height: 56px; padding: 0 6px 0 16px; border-bottom: 1px solid var(--line); background: var(--surface); }
+.zw__dots { display: inline-flex; gap: 6px; }
+.zw__dots i { width: 10px; height: 10px; border-radius: 50%; background: color-mix(in oklab, var(--ink) 18%, transparent); }
+.zw__title { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font: 400 13px/1 var(--font-mono); color: var(--muted); }
+.zw__switch { display: inline-flex; gap: 2px; padding: 3px; border-radius: 12px; background: color-mix(in oklab, var(--ink) 6%, transparent); }
+.zw__switch button { min-height: 44px; padding: 0 14px; border: 0; border-radius: 9px; background: transparent; color: var(--muted); font: 500 14px/1 var(--font-text); cursor: pointer; }
+.zw__switch button[aria-pressed="true"] { background: var(--bg); color: var(--ink); box-shadow: 0 1px 2px rgb(0 0 0 / .12); }
+.zw__canvas { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; background: var(--surface); }
+@media (max-width: 639px) {
+  .zw__bar { height: 52px; padding-left: 12px; }
+  .zw__dots, .zw__title { display: none; }
+  .zw__switch { flex: 1; }
+  .zw__switch button { flex: 1; }
+}
+
+/* ---------------------------------------------------------------- #editor: the app-frame (sections-library) */
+.app.ui { display: grid; grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); margin-top: var(--s-7); background: var(--u-bg); border: 1px solid var(--u-border); border-radius: var(--u-r); box-shadow: var(--u-shadow); }
+.app > .app__pane { position: relative; min-width: 0; min-height: 0; overflow: hidden; }
+.app > .app__pane + .app__pane { border-left: 1px solid var(--u-line); }
+.app > .app__pane::after { content: ""; position: absolute; inset: auto 0 0 0; height: 48px; background: linear-gradient(transparent, var(--u-bg)); pointer-events: none; }
+.ze { --fx-bg: var(--bg); --fx-ink: var(--ink); --fx-muted: var(--muted); --fx-accent: var(--accent); --fx-accent-ink: var(--accent-ink); font: 13px/1.4 var(--font-text); color: var(--u-ink); }
+.ze__main { display: flex; flex-direction: column; gap: 12px; padding: 16px 20px 0; }
+.ze__name { font: 600 16px/1.3 var(--font-text); }
+.ze__stage { display: flex; justify-content: center; min-height: 0; }
+.ze__canvas { display: block; width: 100%; max-width: 640px; height: auto; aspect-ratio: 16 / 9; border-radius: 8px; background: var(--u-fill); }
+.ze__transport { display: flex; align-items: center; gap: 12px; }
+.ze__play { width: 32px; height: 32px; border-radius: 8px; border: 1px solid var(--u-border); position: relative; }
+.ze__play::after { content: ""; position: absolute; left: 12px; top: 9px; border: 7px solid transparent; border-left: 10px solid var(--u-ink); border-right: 0; }
+.ze__time { font: 12px var(--font-mono); }
+.ze__hint { margin-left: auto; color: var(--u-muted); }
+.ze__timeline { position: relative; padding: 18px 0 24px; }
+.ze__ticks { position: absolute; inset: 0 0 auto 0; height: 16px; color: var(--u-muted); font: 11px var(--font-mono); }
+.ze__ticks span { position: absolute; }
+.ze__track { position: relative; height: 48px; border-radius: 10px; background: var(--u-fill); border: 1px solid var(--u-line); }
+.ze__block { position: absolute; top: 6px; bottom: 6px; display: flex; align-items: center; justify-content: center; border-radius: 7px; border: 1px solid var(--u-accent); background: color-mix(in oklab, var(--u-accent) 20%, var(--u-bg)); font: 11px var(--font-mono); }
+.ze__block.is-on { background: var(--u-accent); color: var(--u-accent-ink); }
+.ze__h { position: absolute; top: 30%; bottom: 30%; width: 2px; border-radius: 1px; background: currentColor; opacity: .5; }
+.ze__h--a { left: 4px; } .ze__h--b { right: 4px; }
+.ze__head { position: absolute; top: -4px; bottom: -4px; width: 2px; margin-left: -1px; background: var(--u-ink); }
+.ze__panel { padding: 4px 18px 0; }
+.ze__group { display: grid; gap: 10px; padding: 14px 0; border-bottom: 1px solid var(--u-line); }
+.ze__h3 { display: flex; justify-content: space-between; align-items: baseline; }
+.ze__h3 b { font-weight: 600; }
+.ze__h3 span { color: var(--u-muted); font: 11px var(--font-mono); }
+.ze__slider { display: grid; grid-template-columns: 64px 1fr 40px; gap: 10px; align-items: center; }
+.ze__slider i { height: 4px; border-radius: 2px; background: linear-gradient(to right, var(--u-accent) var(--v), var(--u-fill-3) var(--v)); position: relative; }
+.ze__slider i::after { content: ""; position: absolute; left: var(--v); top: 50%; width: 14px; height: 14px; margin: -7px 0 0 -7px; border-radius: 50%; background: var(--u-bg); border: 2px solid var(--u-accent); }
+.ze__slider em { font: normal 11px var(--font-mono); color: var(--u-muted); text-align: right; }
+.ze__row { display: flex; gap: 8px; }
+.ze__btn { display: inline-flex; align-items: center; justify-content: center; min-height: 32px; padding: 0 12px; border-radius: 8px; border: 1px solid var(--u-border); font-weight: 500; }
+.ze__btn--danger { color: #c2341b; }
+.ze__btn--primary { background: var(--u-accent); border-color: var(--u-accent); color: var(--u-accent-ink); font-weight: 600; }
+.ze__swatches { display: grid; grid-template-columns: repeat(9, 1fr); gap: 5px; }
+.ze__swatches span { aspect-ratio: 1; border-radius: 6px; box-shadow: inset 0 0 0 1px rgb(0 0 0 / .08); }
+.ze__swatches .is-on { outline: 2px solid var(--u-ink); outline-offset: 1px; }
+.ze__seg { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 3px; padding: 3px; border: 1px solid var(--u-line); border-radius: 9px; }
+.ze__seg span { display: grid; place-items: center; min-height: 26px; border-radius: 6px; font-weight: 500; }
+.ze__seg .is-on { background: var(--u-ink); color: var(--u-bg); }
+@media (max-width: 1023px) {
+  .app.ui { grid-template-columns: minmax(0, 1fr); }
+  .app > .ze__panel { display: none; }
+}
+@media (max-width: 639px) {
+  .ze__main { padding: 12px 12px 0; }
+  .ze__hint { display: none; }
+}
+
+/* ---------------------------------------------------------------- #features: the card fragments */
+#features .panel { --p-h: 300px; }
+.zf { --fx-bg: var(--bg); --fx-ink: var(--ink); --fx-muted: var(--muted); --fx-accent: var(--accent); --fx-accent-ink: var(--accent-ink);
+  display: grid; gap: 12px; padding: 20px; border-radius: 14px; background: var(--u-bg); border: 1px solid var(--u-border); box-shadow: var(--u-shadow);
+  font: 13px/1.45 var(--font-text); color: var(--u-ink); justify-items: start; }
+.zf__title { font: 600 16px/1.3 var(--font-text); }
+.zf__muted { color: var(--u-muted); }
+.zf__switch { display: inline-flex; align-items: center; gap: 10px; }
+.zf__switch i { width: 30px; height: 18px; border-radius: 9px; background: var(--u-fill-3); position: relative; }
+.zf__switch i::after { content: ""; position: absolute; top: 2px; left: 2px; width: 14px; height: 14px; border-radius: 50%; background: var(--u-bg); }
+.zf__switch i.is-on { background: var(--u-accent); }
+.zf__switch i.is-on::after { left: 14px; }
+.zf__btn { display: inline-flex; align-items: center; gap: 8px; min-height: 36px; padding: 0 14px; border-radius: 9px; font-weight: 600; }
+.zf__btn--primary { background: var(--u-accent); color: var(--u-accent-ink); }
+.zf__rec { width: 9px; height: 9px; border-radius: 50%; background: currentColor; }
+.zf__drop { justify-self: stretch; display: grid; place-items: center; min-height: 64px; border: 1.5px dashed var(--u-line-2); border-radius: 10px; color: var(--u-muted); }
+.zf__file { justify-self: stretch; display: flex; align-items: center; gap: 12px; }
+.zf__file > span { display: grid; }
+.zf__file small { color: var(--u-muted); font: 11px var(--font-mono); }
+.zf__thumb { width: 52px; height: 32px; flex: none; border-radius: 5px; background: linear-gradient(135deg, #3a3a40, #0c0c0d); }
+.zf__bar { justify-self: stretch; height: 6px; border-radius: 3px; background: var(--u-fill-2); overflow: hidden; }
+.zf__bar i { display: block; height: 100%; background: var(--u-accent); }
+.zf__swatches { justify-self: stretch; display: grid; grid-template-columns: repeat(9, 1fr); gap: 5px; }
+.zf__swatches i { aspect-ratio: 1; border-radius: 6px; }
+.zf__swatches .is-on { outline: 2px solid var(--u-ink); outline-offset: 1px; }
+.zf__seg { justify-self: stretch; display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 3px; padding: 3px; border: 1px solid var(--u-line); border-radius: 9px; }
+.zf__seg span { display: grid; place-items: center; min-height: 28px; border-radius: 6px; font-weight: 500; }
+.zf__seg .is-on { background: var(--u-ink); color: var(--u-bg); }
+.zf__shapes { justify-self: stretch; display: flex; align-items: end; justify-content: center; gap: 16px; height: 96px; }
+.zf__shape { border-radius: 6px; background: linear-gradient(160deg, #1d4fd8, #8cc4ff); opacity: .35; }
+.zf__shape.is-on { opacity: 1; }
+.zf__shape--w { width: 112px; height: 63px; } .zf__shape--s { width: 72px; height: 72px; } .zf__shape--t { width: 54px; height: 96px; }
+
+/* ---------------------------------------------------------------- #how: the changed cells */
+.lp-diff { display: grid; place-items: center; padding: 32px; }
+.zd { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; border-radius: 10px; box-shadow: 0 2px 4px rgb(0 0 0 / .08), 0 24px 48px -24px rgb(0 0 0 / .4); }
+@media (max-width: 639px) { .lp-diff { padding: 16px; } }
+
+/* ---------------------------------------------------------------- questions: the publik pitch */
+.lp-pitch { font-size: var(--t-body); line-height: 1.6; color: var(--ink); }
+.lp-pitch p { margin: 0 0 var(--s-3); max-width: 46ch; }
+.lp-pitch a { color: var(--ink); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; text-decoration-color: color-mix(in oklab, var(--ink) 35%, transparent); }
+.lp-pitch a:hover { text-decoration-color: currentColor; }
+.lp-pitch .pk-pitch-cta { display: inline-flex; align-items: center; min-height: 44px; font-weight: 500; }
+
+/* ---------------------------------------------------------------- gate round 1 */
+/* the split's frame at its 5:4, the recording inside it */
+#how .frame--split { aspect-ratio: 5 / 4; position: relative; }
+#how .lp-diff { position: absolute; inset: 0; }
+@media (max-width: 639px) { #how .frame--split { aspect-ratio: 1; } #features .panel { --p-h: 230px; } }
+/* the AI panel under the publik pitch */
+.lp-post { position: relative; display: grid; place-items: center; padding: 28px; margin-top: var(--s-4); }
+.lp-post .zf { width: 100%; max-width: 380px; }
+.zf__h { justify-self: stretch; display: flex; justify-content: space-between; align-items: baseline; }
+.zf__h small { color: var(--u-muted); font: 11px var(--font-mono); }
+.zf__field { justify-self: stretch; padding: 8px 10px; border: 1px solid var(--u-line-2); border-radius: 8px; }
+.zf__out { justify-self: stretch; padding: 10px 12px; border-radius: 8px; background: var(--u-fill-2); }
+.frame.lp-post { aspect-ratio: auto; height: auto; min-height: 0; }
+.lp-post > .zf { position: relative; inset: auto; }
+
+/* ---------------------------------------------------------------- gate round 2 */
+/* the split frame runs down to the text's last row; the recording fills it, the zoom's corner in view */
+#how .frame--split { aspect-ratio: 15 / 16; }
+#how .zd { width: 100%; height: 100%; object-fit: cover; object-position: 18% 0; aspect-ratio: auto; }
+@media (max-width: 639px) {
+  #how .frame--split { aspect-ratio: 1; }
+  #features .panel { --p-h: 196px; }
+  .lp-post { padding: 16px; }
+  .lp-post .zf__muted { display: none; }
+}

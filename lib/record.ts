@@ -64,7 +64,7 @@ export function drawExampleScene(g: CanvasRenderingContext2D, W: number, H: numb
   rr(g, 260 * u, 90 * u, 520 * u, 52 * u, 10 * u); g.stroke();
   const text = "quarterly signups by country";
   const n = Math.max(0, Math.min(text.length, Math.floor((t - 0.8) * 12)));
-  g.fillStyle = ink; g.font = `${22 * u}px Inter, system-ui, sans-serif`; g.textBaseline = "middle";
+  g.fillStyle = ink; g.font = `${22 * u}px Geist, Inter, system-ui, sans-serif`; g.textBaseline = "middle";
   g.fillText(text.slice(0, n) || (t < 0.8 ? "" : ""), 282 * u, 116 * u);
   if (t > 0.6 && t < 3.8 && Math.floor(t * 2.5) % 2 === 0) { const w = g.measureText(text.slice(0, n)).width; g.fillRect(284 * u + w, 102 * u, 2 * u, 28 * u); }
   if (n === 0 && t < 0.8) { g.fillStyle = mute; g.fillText("Search reports", 282 * u, 116 * u); }
@@ -84,7 +84,7 @@ export function drawExampleScene(g: CanvasRenderingContext2D, W: number, H: numb
   // export button + click (t 5.2 → 6.6)
   const pressed = t > 5.6 && t < 5.9, toast = t > 5.9;
   g.fillStyle = pressed ? "#d94f14" : "#ff6a2b"; rr(g, 1040 * u, 640 * u, 180 * u, 50 * u, 12 * u); g.fill();
-  g.fillStyle = "#fff"; g.font = `600 ${20 * u}px Inter, system-ui, sans-serif`; g.textAlign = "center"; g.fillText(toast ? "Exported ✓" : "Export CSV", 1130 * u, 665 * u); g.textAlign = "left";
+  g.fillStyle = "#fff"; g.font = `600 ${20 * u}px Geist, Inter, system-ui, sans-serif`; g.textAlign = "center"; g.fillText(toast ? "Exported ✓" : "Export CSV", 1130 * u, 665 * u); g.textAlign = "left";
   // cursor: glides to the search box, then to the button
   const path: [number, number, number][] = [[0, 640, 400], [0.6, 380, 118], [3.6, 400, 130], [5.4, 1120, 668], [9, 1120, 668]];
   let cx = path[0][1], cy = path[0][2];
