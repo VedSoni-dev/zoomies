@@ -2,7 +2,7 @@
 
 Record your screen in a browser tab and get a demo video that zooms in on its own where things happen, framed on a background, downloaded as an MP4. A free, open-source alternative to Screen Studio that runs on any computer with nothing to install.
 
-**Live:** https://zoomies.vercel.app · the app is at `/app`
+**Live:** https://zoomies-one.vercel.app · the app is at `/app`
 
 ## What works
 - **Record in the tab**: a screen, a window or a browser tab (`getDisplayMedia`), with tab/system audio and, if you want, your microphone. Chrome, Edge and Firefox on Windows, ChromeOS, Linux and macOS.

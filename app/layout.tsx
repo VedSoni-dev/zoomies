@@ -4,7 +4,7 @@ import "@fontsource-variable/jetbrains-mono";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://zoomies.vercel.app"),
+  metadataBase: new URL("https://zoomies-one.vercel.app"),
   title: "zoomies: demo videos that zoom themselves, in a browser tab",
   description:
     "Record your screen in a browser tab and get a demo video that zooms in where things happen, framed on a background, downloaded as an MP4. Works on Windows, Chromebook, Linux and Mac. Free, open source, nothing to install, nothing uploaded.",
