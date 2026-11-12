@@ -1,0 +1,46 @@
+:root {
+  --bg: #f4f2ee;
+  --bg-2: #ebe8e1;
+  --card: #fbfaf8;
+  --ink: #16150f;
+  --muted: #6c6a62;
+  --line: #dedad1;
+  --accent: #ff5a1f;
+  --accent-ink: #ffffff;
+  --danger: #c2341b;
+  --sans: "Inter Variable", system-ui, -apple-system, sans-serif;
+  --mono: "JetBrains Mono Variable", ui-monospace, monospace;
+  --publik-bg: var(--bg); --publik-card: var(--card); --publik-ink: var(--ink); --publik-muted: var(--muted);
+  --publik-line: var(--line); --publik-accent: var(--ink); --publik-accent-ink: var(--bg); --publik-hover: var(--bg-2);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #111110; --bg-2: #1b1b19; --card: #181816; --ink: #efede7; --muted: #9a978e; --line: #2c2b28;
+    --accent: #ff6a32; --accent-ink: #111110; --danger: #ff7a5c;
+    color-scheme: dark;
+  }
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { background: var(--bg); color: var(--ink); font: 15px/1.5 var(--sans); -webkit-font-smoothing: antialiased; }
+a { color: inherit; }
+h1, h2, h3 { margin: 0; letter-spacing: -0.02em; }
+.mono { font-family: var(--mono); font-feature-settings: "zero" 0; }
+.muted { color: var(--muted); }
+.small { font-size: 13px; }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 38px; padding: 8px 14px;
+  border: 1px solid var(--line); border-radius: 10px; background: var(--card); color: var(--ink);
+  font: 500 14px/1 var(--sans); text-decoration: none; cursor: pointer; transition: background-color .15s, transform .1s, opacity .15s;
+}
+.btn:hover { background: var(--bg-2); }
+.btn:active { transform: translateY(1px); }
+.btn:disabled { opacity: .5; cursor: default; }
+.btn-primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); font-weight: 600; }
+.btn-primary:hover { background: var(--accent); opacity: .92; }
+.btn-ghost { background: transparent; }
+.btn-lg { min-height: 48px; padding: 12px 20px; font-size: 16px; border-radius: 12px; }
+.btn:focus-visible, button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.linkish { background: none; border: 0; padding: 0; color: var(--ink); font: inherit; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
