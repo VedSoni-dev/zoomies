@@ -1,0 +1,22 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@700;800&family=Inter:wght@500&display=swap" rel="stylesheet">
+<style>
+  html,body{margin:0;width:1200px;height:630px;overflow:hidden;background:#0b0a09}
+  body{position:relative;font-family:"Inter Tight",system-ui,sans-serif;color:#f4f2ee}
+  .glow{position:absolute;inset:0;background:radial-gradient(520px 300px at 50% 18%, rgba(232,80,26,.30), transparent 70%), radial-gradient(600px 260px at 50% 110%, rgba(232,80,26,.18), transparent 70%)}
+  .dots{position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.06) 1px, transparent 1px);background-size:22px 22px}
+  /* everything important sits inside the centre 840px: Publik crops cards to ~4:3 */
+  .col{position:absolute;left:180px;width:840px;top:0;bottom:0;display:flex;flex-direction:column;align-items:center}
+  .row{display:flex;align-items:center;gap:14px;margin-top:46px}
+  .row img{width:46px;height:46px;border-radius:12px}
+  .name{font-weight:800;font-size:58px;letter-spacing:-2px}
+  .tag{margin-top:8px;font:500 23px/1.3 Inter,system-ui,sans-serif;color:#b9b3a8;text-align:center}
+  .tag b{color:#ff8a5c;font-weight:500}
+  .shot{margin-top:28px;width:780px;height:404px;border-radius:16px 16px 0 0;overflow:hidden;border:1px solid #2b2722;border-bottom:none;box-shadow:0 -20px 80px rgba(232,80,26,.18)}
+  .shot img{width:100%;display:block}
+</style></head><body><div class="glow"></div><div class="dots"></div>
+<div class="col">
+  <div class="row"><img src="../../../public/icon.svg"><div class="name">zoomies</div></div>
+  <div class="tag">record a browser tab, get a demo that <b>zooms in on its own</b></div>
+  <div class="shot"><img src="hero-crop.png"></div>
+</div></body></html>

@@ -196,3 +196,6 @@
   #questions .lp-post > .zf { margin-inline: auto; }
   #questions .grid--top > .stack-5 { margin-bottom: var(--s-8); }
 }
+
+/* publik listing pending: one quiet line under the pitch */
+.lp-pending { margin: 0; max-width: 46ch; font-size: var(--t-small, 0.875rem); line-height: 1.5; color: var(--muted, color-mix(in oklab, var(--ink) 62%, transparent)); }

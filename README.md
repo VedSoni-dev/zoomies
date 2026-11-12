@@ -1,8 +1,21 @@
 # zoomies
 
+![zoomies: record a browser tab, get a demo that zooms in on its own](docs/media/cover.png)
+
 Record your screen in a browser tab and get a demo video that zooms in on its own where things happen, framed on a background, downloaded as an MP4. A free, open-source alternative to Screen Studio that runs on any computer with nothing to install.
 
-**Live:** https://zoomies-one.vercel.app · the app is at `/app`
+## See it
+
+![zoomies finds where the screen changes and zooms in by itself](docs/media/auto-zoom.gif)
+
+| | |
+|---|---|
+| ![Make your first demo: record your screen or drop a video](docs/media/1-start.png) | ![The editor after zoomies placed three zooms on the timeline](docs/media/2-zooms-found.png) |
+| ![The preview zoomed in on the search box while it plays](docs/media/3-zoomed-in.png) | ![Export finished: a 1080p MP4 ready to download](docs/media/4-export-done.png) |
+
+These are the real app at `/app`, with its labelled example clip (a made-up shop, sample data).
+
+**Live:** https://zoomies-one.vercel.app · the app is at [`/app`](https://zoomies-one.vercel.app/app) · publik listing coming soon (publik caps new listings each week; until then `/app` opens with no sign-in)
 
 ## What works
 - **Record in the tab**: a screen, a window or a browser tab (`getDisplayMedia`), with tab/system audio and, if you want, your microphone. Chrome, Edge and Firefox on Windows, ChromeOS, Linux and macOS.

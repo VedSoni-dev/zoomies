@@ -8,7 +8,7 @@
 // moments: letters-assemble in #statement
 // This component holds no state, so React never redraws the static markup the kit's scripts work on. The live
 // parts keep their own state: the hero's window and the canvases.
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { PublikPitch } from "@/components/PublikGate";
 import { HeroWindow, EditorFrame, RecordFragment, DropFragment, FrameFragment, ExportFragment, DiffView, PostFragment } from "./Pieces";
 
@@ -31,6 +31,17 @@ export function Mark({ size = 22 }: { size?: number }) {
 const ARROW = (
   <svg className="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path className="m-arrow__stem" d="M1 6h8" /><path className="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5" /></svg>
 );
+
+// While the publik listing is pending (publik-pending.txt), one line under the pitch says so. It keeps its own
+// state so Landing itself never re-renders, and it disappears on its own once the listing and app token exist.
+function PublikPending() {
+  const [pending, setPending] = useState(false);
+  useEffect(() => {
+    fetch("/api/publik/status", { cache: "no-store" }).then((r) => r.json()).then((j) => setPending(j?.state === "pending")).catch(() => {});
+  }, []);
+  if (!pending) return null;
+  return <p className="lp-pending">zoomies is coming to publik (publik caps new listings each week). Until its listing is up, the recorder is open to everyone with no sign-in.</p>;
+}
 
 export function Landing() {
   useEffect(() => {
@@ -196,6 +207,7 @@ export function Landing() {
               <div className="span-5 stack-5">
                 <h2 id="questions-h">Questions</h2>
                 <PublikPitch appName="zoomies" className="lp-pitch" />
+                <PublikPending />
                 <div className="frame frame--lit lp-post"><PostFragment /></div>
               </div>
               <div className="faq span-6 start-7">
