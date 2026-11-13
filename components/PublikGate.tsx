@@ -62,7 +62,9 @@ async function postChoice(choice: Choice | null): Promise<void> {
 }
 let openedThisPage = false; // app_opened once per page load (React runs effects twice in development)
 
-export function PublikGate({ appName, children }: { appName?: string; children: ReactNode }) {
+/** `tagline` and `preview` (a short muted loop, e.g. /gate-preview.mp4 cut from the aha GIF) show what the app is on the
+ *  sign-in screen itself: posts, replies and DMs link straight here (forkthis, 2026-11-13: publik counts only sign-ins). */
+export function PublikGate({ appName, tagline, preview, children }: { appName?: string; tagline?: string; preview?: string; children: ReactNode }) {
   const [status, setStatus] = useState<GateStatus | null>(null);
   const [down, setDown] = useState(false);
   const [busy, setBusy] = useState(true);
@@ -187,7 +189,9 @@ export function PublikGate({ appName, children }: { appName?: string; children: 
     <main className="pk-gate" aria-busy={busy || !shown}>
       <style href="publik-gate" precedence="default">{CSS}</style>
       <div className="pk-card" role="group" aria-labelledby="pk-title">
+        {preview && <video className="pk-preview" src={preview} autoPlay muted loop playsInline preload="auto" aria-hidden="true" />}
         {appName && <p className="pk-app">{appName}</p>}
+        {tagline && <p className="pk-tagline">{tagline}</p>}
         <h1 id="pk-title" className="pk-title">{shown?.screen.title ?? "Sign in with publik"}</h1>
         {shown ? (
           <p className="pk-body">{shown.screen.body}</p>
@@ -275,6 +279,8 @@ const CSS = `
 .pk-gate{box-sizing:border-box;min-height:100vh;min-height:100dvh;display:flex;align-items:center;justify-content:center;padding:24px 16px;background:var(--pk-bg);color:var(--pk-ink)}
 .pk-card{box-sizing:border-box;width:100%;max-width:420px;padding:28px 24px;border:1px solid var(--pk-line);border-radius:20px;background:var(--pk-card);box-shadow:0 1px 0 rgba(0,0,0,.03),0 16px 40px -24px rgba(0,0,0,.35)}
 .pk-app{margin:0 0 16px;font-size:13px;font-weight:600;letter-spacing:.01em;color:var(--pk-muted)}
+.pk-preview{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;margin:0 0 18px;border:1px solid var(--pk-line);border-radius:12px;background:var(--pk-bg)}
+.pk-tagline{margin:-10px 0 18px;font-size:16px;line-height:1.45;font-weight:500}
 .pk-title{margin:0 0 8px;font-family:var(--publik-display-font,inherit);font-size:26px;line-height:1.15;font-weight:700;letter-spacing:-.015em}
 .pk-body{margin:0;font-size:15px;line-height:1.55}
 .pk-pitch{margin-top:22px;padding-top:16px;border-top:1px solid color-mix(in srgb,currentColor 14%,transparent);font-size:13px;line-height:1.55;opacity:.85}.pk-pitch p{margin:0 0 10px}.pk-pitch a{color:inherit}.pk-pitch-cta{font-weight:600;text-decoration:none}

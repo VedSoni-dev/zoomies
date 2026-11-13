@@ -7,7 +7,7 @@ export const metadata = { title: "zoomies · studio" };
 
 export default function AppPage() {
   return (
-    <PublikGate appName="zoomies">
+    <PublikGate appName="zoomies" tagline="Demo videos that zoom in on their own, recorded right in a browser tab." preview="/gate-preview.mp4">
       <Studio />
     </PublikGate>
   );
