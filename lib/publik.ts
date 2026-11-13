@@ -20,7 +20,7 @@ import { join } from "node:path";
 import { platform } from "node:os";
 import type { cookies } from "next/headers";
 
-export const APP_SLUG = "zoomies";
+export const APP_SLUG = "deckhand"; // the builds hub listing (~/Projects/vedanttalksai/kit/hub.json): every fork build signs in with publik
 export const APP_VERSION = "0.1.0";
 /** false: the app calls no model. It still signs in and counts users; it skips the plan screen. */
 export const USES_AI = true;
